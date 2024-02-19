@@ -199,7 +199,7 @@ LOCK/UNLOCK is not supported.
 # Using curl   
 You can manipulate files using curl.   
 
-- Read Files/Folders on Webdav Server:
+- Read Files/Folders on Webdav Server:   
  The body is XML and follows the following schema.   
  https://personium.io/docs/en/apiref/307_Get_Property   
 ```
