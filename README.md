@@ -217,7 +217,9 @@ curl -i -X PUT -T 'file.txt' '192.168.10.42:8080/new_folder/file.txt'
 ```
 
 - Download file on Webdav Server:
+```
 curl -i -X GET '192.168.10.42:8080/new_folder/file.txt'
+```
 
 - Copy file on Webdav Server:
 ```
