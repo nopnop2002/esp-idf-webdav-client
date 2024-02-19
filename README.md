@@ -28,6 +28,13 @@ Set the following items using menuconfig.
 ![config-wifi](https://github.com/nopnop2002/esp-idf-webdav-client/assets/6020549/6b682110-34d5-49b8-83e6-5fa03f89a505)
 
 ## HTTP Server Setting
+HTTP server is specified by one of the following.
+- IP address   
+ ```192.168.10.20```   
+- mDNS host name   
+ ```http-server.local```   
+- Fully Qualified Domain Name   
+ ```httpbin.org```
 
 ![config-http-1](https://github.com/nopnop2002/esp-idf-webdav-client/assets/6020549/6144964d-f0da-496f-9287-abe79bab4f0c)
 
