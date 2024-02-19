@@ -27,7 +27,7 @@ idf.py flash monitor
 Set the following items using menuconfig.
 
 ![config-top](https://github.com/nopnop2002/esp-idf-webdav-client/assets/6020549/f94309ff-f0b7-4309-9d5a-4a8457ab89ea)
-![config-app](https://github.com/nopnop2002/esp-idf-webdav-client/assets/6020549/7bc90b6c-ce59-4366-ae24-06d9129cfb6b)## Wifi Setting
+![config-app](https://github.com/nopnop2002/esp-idf-webdav-client/assets/6020549/7bc90b6c-ce59-4366-ae24-06d9129cfb6b)
 
 ## WiFi Setting
 ![config-wifi](https://github.com/nopnop2002/esp-idf-webdav-client/assets/6020549/6b682110-34d5-49b8-83e6-5fa03f89a505)
