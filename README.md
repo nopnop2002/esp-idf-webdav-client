@@ -229,10 +229,20 @@ curl -i -X GET '192.168.10.42:8080/new_folder/file.txt'
 
 - Copy file on Webdav Server:
 ```
+curl -i -X COPY '192.168.10.42:8080/new_folder/file.txt' -H "Destination: /new_folder/file2.txt"
+```
+
+- Copy file on Webdav Server by overwriting them:
+```
 curl -i -X COPY '192.168.10.42:8080/new_folder/file.txt' -H "Destination: /new_folder/file2.txt" -H "Overwrite: T"
 ```
 
 - Move file on Webdav Server:
+```
+curl -i -X MOVE '192.168.10.42:8080/new_folder/file.txt' -H "Destination: /new_folder/file3.txt"
+```
+
+- Move file on Webdav Server by overwriting them:
 ```
 curl -i -X MOVE '192.168.10.42:8080/new_folder/file.txt' -H "Destination: /new_folder/file3.txt" -H "Overwrite: T"
 ```
