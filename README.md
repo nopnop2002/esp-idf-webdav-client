@@ -198,6 +198,7 @@ LOCK/UNLOCK is not supported.
 
 # Using curl   
 You can manipulate files using curl.   
+In addition to PUT/GET/DELETE, you can use PROPFIND/MKCOL/COPY/MOVE.   
 
 - Read Files/Folders on Webdav Server:   
  The body is XML and follows the following schema.   
