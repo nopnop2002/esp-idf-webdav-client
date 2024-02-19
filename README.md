@@ -4,6 +4,11 @@ ESP-IDF contains a lot of example code, but there is no example to WebDav client
 This project uses the WevDav protocol to manipulate files on a WebDav server.   
 No libraries other than ESP-IDF are required to use WebDav.   
 
+# Waht is WebDav   
+WebDAV (Web-based Distributed Authoring and Versioning) is an extension of Hypertext Transfer Protocol and is a protocol that realizes a distributed file system for managing files on web servers.
+https://en.wikipedia.org/wiki/WebDAV
+
+
 # Software requiment
 ESP-IDF V4.4/V5.x.   
 ESP-IDF V5.0 is required when using ESP32-C2.   
