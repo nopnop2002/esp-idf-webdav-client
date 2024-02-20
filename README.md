@@ -198,8 +198,9 @@ total 0
 ```
 
 
-# Limitaion
-LOCK/UNLOCK is not supported.   
+# Limitaion   
+- LOCK/UNLOCK is not supported.   
+- https is not supported.   
 
 # Using curl   
 You can work with files using curl.   
