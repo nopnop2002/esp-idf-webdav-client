@@ -94,11 +94,11 @@ W (129134) HTTP: Creating new file on Webdav Server. Press Enter when ready.
 $ LANG=C ls -lR
 .:
 total 4
-drwxrwxr-x 2 nop nop 4096 Feb 19 23:29 new_folder
+drwxrwxr-x 2 nop nop 4096 Feb 20 09:00 new_folder
 
 ./new_folder:
-total 20
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:29 file.txt
+total 4
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file.txt
 ```
 
 - Get file from server
@@ -116,12 +116,12 @@ W (37584) HTTP: Copying file on Webdav Server. Press Enter when ready.
 $ LANG=C ls -lR
 .:
 total 4
-drwxrwxr-x 2 nop nop 4096 Feb 19 23:33 new_folder
+drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 new_folder
 
 ./new_folder:
-total 40
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file.txt
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file2.txt
+total 8
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file.txt
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
 ```
 
 - Move file
@@ -133,12 +133,12 @@ W (19844) HTTP: Moveing file on Webdav Server. Press Enter when ready.
 $ LANG=C ls -lR
 .:
 total 4
-drwxrwxr-x 2 nop nop 4096 Feb 19 23:33 new_folder
+drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 new_folder
 
 ./new_folder:
-total 40
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file2.txt
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file3.txt
+total 8
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file3.txt
 ```
 
 - Copy folder
@@ -150,18 +150,18 @@ W (40084) HTTP: Copying folder on Webdav Server. Press Enter when ready.
 $ LANG=C ls -lR
 .:
 total 8
-drwxrwxr-x 2 nop nop 4096 Feb 19 23:34 copy_folder
-drwxrwxr-x 2 nop nop 4096 Feb 19 23:33 new_folder
+drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 copy_folder
+drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 new_folder
 
 ./copy_folder:
-total 40
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file2.txt
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file3.txt
+total 8
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file3.txt
 
 ./new_folder:
-total 40
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file2.txt
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file3.txt
+total 8
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file3.txt
 ```
 
 - Delete file
@@ -173,17 +173,17 @@ W (84614) HTTP: Deleting file on Webdav Server. Press Enter when ready.
 $ LANG=C ls -lR
 .:
 total 8
-drwxrwxr-x 2 nop nop 4096 Feb 19 23:34 copy_folder
-drwxrwxr-x 2 nop nop 4096 Feb 19 23:35 new_folder
+drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 copy_folder
+drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 new_folder
 
 ./copy_folder:
-total 40
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file2.txt
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file3.txt
+total 8
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file3.txt
 
 ./new_folder:
-total 20
--rw-rw-r-- 1 nop nop 20479 Feb 19 23:33 file2.txt
+total 4
+-rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
 ```
 
 - Delete folder
