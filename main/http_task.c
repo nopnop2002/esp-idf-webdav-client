@@ -305,7 +305,7 @@ esp_err_t http_webdav_mkcol(int sock, char * path, bool receive_print) {
 int getFileSize(char *fullPath);
 void printDirectory(char * path);
 
-esp_err_t http_webdav_put(int sock, char *local, char *path, bool receive_print) {
+esp_err_t http_webdav_text_put(int sock, char *local, char *path, bool receive_print) {
 	// Allocate header
 	char *header_buffer = malloc(HEADER_SIZE);
 	if (header_buffer == NULL) {
@@ -401,7 +401,109 @@ esp_err_t http_webdav_put(int sock, char *local, char *path, bool receive_print)
 #endif
 	free(header_buffer);
 	return return_code;
-} // http_webdav_put
+} // http_webdav_text_put
+
+
+esp_err_t http_webdav_binary_put(int sock, char *local, char *path, bool receive_print) {
+	// Allocate header
+	char *header_buffer = malloc(HEADER_SIZE);
+	if (header_buffer == NULL) {
+		ESP_LOGE(TAG, "header_buffer malloc fail");
+		return ESP_FAIL;
+	}
+	memset(header_buffer, 0, HEADER_SIZE);
+
+	// Get local file size
+	int file_size = getFileSize(local);
+	ESP_LOGI(TAG, "local=[%s] file_size=%d", local, file_size);
+	if (file_size < 0) {
+		ESP_LOGE(TAG, "invalid file size");
+		return ESP_FAIL;
+	}
+
+	// Setup request header
+	char request[513];
+	char extra_header[128];
+	strcpy(extra_header, "Accept: */*\r\nContent-Type: application/x-www-form-urlencoded\r\nExpect: 100-continue");
+	http_request_set(request, 512, "PUT", path, file_size, extra_header);
+
+	// Send request
+	if (write(sock, request, strlen(request)) < 0) {
+		ESP_LOGE(TAG, "... socket send failed");
+		return ESP_FAIL;
+	}
+	ESP_LOGD(TAG, "... socket send success");
+
+	/* Read HTTP response */
+	char recv_buf[128];
+	int recv_bytes;
+	bzero(recv_buf, sizeof(recv_buf));
+	recv_bytes = read(sock, recv_buf, sizeof(recv_buf)-1);
+	if (receive_print) {
+		for(int i = 0; i < recv_bytes; i++) {
+			putchar(recv_buf[i]);
+		}
+		printf("\n");
+	}
+
+	ESP_LOGI(TAG, "recv_buf=[%s]", recv_buf);
+	if (strncmp(recv_buf, "HTTP/1.1 100 Continue", 21) !=0) {
+		return ESP_FAIL;
+	}
+
+	// Open local file
+	FILE* fp = fopen(local, "rb");
+	if (fp == NULL) {
+		ESP_LOGE(TAG, "Failed to open file for reading");
+		return ESP_FAIL;
+	}
+
+	// Send body
+	uint8_t buffer[512];
+	int total_read = 0;
+	while(1) {
+		size_t read_bytes = fread(buffer, 1, sizeof(buffer), fp);
+		ESP_LOGD(TAG, "fread read_bytes=%d", read_bytes);
+		if (read_bytes == 0) break;
+		if (write(sock, buffer, read_bytes) < 0) {
+			ESP_LOGE(TAG, "... socket send failed");
+			return ESP_FAIL;
+		}
+		total_read += read_bytes;
+	}
+	fclose(fp);
+	ESP_LOGI(TAG, "File read done. total_read=%d", total_read);
+
+	esp_err_t return_code = ESP_OK;
+	int header_length = 0;
+	int content_length = 0;
+	int body_index = 0;
+	int body_length = 0;
+	bool header_detect = false;
+
+	/* Read HTTP response */
+	while(1) {
+		char recv_buf[64];
+		int recv_bytes;
+		bzero(recv_buf, sizeof(recv_buf));
+		recv_bytes = read(sock, recv_buf, sizeof(recv_buf)-1);
+		if (receive_print) {
+			for(int i = 0; i < recv_bytes; i++) {
+				putchar(recv_buf[i]);
+			}
+			printf("\n");
+		}
+
+		http_header_analysis(&header_detect, recv_buf, recv_bytes, header_buffer, &header_length, &content_length, &body_index, &body_length);
+		ESP_LOGI(TAG, "header_detect=%d content_length=%d body_index=%d body_length=%d", header_detect, content_length, body_index, body_length);
+		if (header_detect) break;
+	} // end while
+
+	free(header_buffer);
+	return return_code;
+} // http_webdav_binary_put
+
+
 
 esp_err_t http_webdav_get(int sock, char *local, char *path, bool receive_print) {
 	// Allocate header
@@ -710,6 +812,7 @@ void http_task(void *pvParameters)
 #endif
 
 	int sock;
+
 	// Perfome MKCOL
 	wait_enter("Creating new foder on Webdav Server. Press Enter when ready.");
 	sock = connect_server(res);
@@ -717,12 +820,20 @@ void http_task(void *pvParameters)
 	http_webdav_propfind(sock, false);
 	close(sock);
 
-	// Perfome PUT
-	wait_enter("Creating new file on Webdav Server. Press Enter when ready.");
+	// Perfome Text PUT
+	wait_enter("Creating new text file on Webdav Server. Press Enter when ready.");
 	char local[32];
 	strcpy(local, "/spiffs/test.txt");
 	sock = connect_server(res);
-	http_webdav_put(sock, local, "/new_folder/file.txt", true);
+	http_webdav_text_put(sock, local, "/new_folder/file.txt", true);
+	http_webdav_propfind(sock, false);
+	close(sock);
+
+	// Perfome Binary PUT
+	wait_enter("Creating new binary file on Webdav Server. Press Enter when ready.");
+	strcpy(local, "/spiffs/esp32.jpeg");
+	sock = connect_server(res);
+	http_webdav_binary_put(sock, local, "/new_folder/esp32.jpeg", true);
 	http_webdav_propfind(sock, false);
 	close(sock);
 

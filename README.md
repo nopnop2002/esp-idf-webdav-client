@@ -85,9 +85,9 @@ drwxrwxr-x 2 nop nop 4096 Feb 19 23:26 new_folder
 total 0
 ```
 
-- Create new file
+- Create new text file
 ```
-W (129134) HTTP: Creating new file on Webdav Server. Press Enter when ready.
+W (28975) HTTP: Creating new text file on Webdav Server. Press Enter when ready.
 ```
 
 ```
@@ -100,6 +100,24 @@ drwxrwxr-x 2 nop nop 4096 Feb 20 09:00 new_folder
 total 4
 -rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file.txt
 ```
+
+- Create new binary file
+```
+W (47475) HTTP: Creating new binary file on Webdav Server. Press Enter when ready.
+```
+
+```
+$ LANG=C ls -lR
+.:
+total 4
+drwxrwxr-x 2 nop nop 4096 Feb 26 06:18 new_folder
+
+./new_folder:
+total 24
+-rw-rw-r-- 1 nop nop 18753 Feb 26 06:18 esp32.jpeg
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file.txt
+```
+
 
 - Get file from server
 ```
@@ -116,12 +134,13 @@ W (37584) HTTP: Copying file on Webdav Server. Press Enter when ready.
 $ LANG=C ls -lR
 .:
 total 4
-drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 new_folder
+drwxrwxr-x 2 nop nop 4096 Feb 26 06:19 new_folder
 
 ./new_folder:
-total 8
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file.txt
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
+total 28
+-rw-rw-r-- 1 nop nop 18753 Feb 26 06:18 esp32.jpeg
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file.txt
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file2.txt
 ```
 
 - Move file
@@ -133,12 +152,13 @@ W (19844) HTTP: Moveing file on Webdav Server. Press Enter when ready.
 $ LANG=C ls -lR
 .:
 total 4
-drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 new_folder
+drwxrwxr-x 2 nop nop 4096 Feb 26 06:19 new_folder
 
 ./new_folder:
-total 8
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file3.txt
+total 28
+-rw-rw-r-- 1 nop nop 18753 Feb 26 06:18 esp32.jpeg
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file2.txt
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file3.txt
 ```
 
 - Copy folder
@@ -150,18 +170,20 @@ W (40084) HTTP: Copying folder on Webdav Server. Press Enter when ready.
 $ LANG=C ls -lR
 .:
 total 8
-drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 copy_folder
-drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 new_folder
+drwxrwxr-x 2 nop nop 4096 Feb 26 06:20 copy_folder
+drwxrwxr-x 2 nop nop 4096 Feb 26 06:19 new_folder
 
 ./copy_folder:
-total 8
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file3.txt
+total 28
+-rw-rw-r-- 1 nop nop 18753 Feb 26 06:18 esp32.jpeg
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file2.txt
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file3.txt
 
 ./new_folder:
-total 8
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file3.txt
+total 28
+-rw-rw-r-- 1 nop nop 18753 Feb 26 06:18 esp32.jpeg
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file2.txt
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file3.txt
 ```
 
 - Delete file
@@ -170,20 +192,22 @@ W (84614) HTTP: Deleting file on Webdav Server. Press Enter when ready.
 ```
 
 ```
-$ LANG=C ls -lR
+t$ LANG=C ls -lR
 .:
 total 8
-drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 copy_folder
-drwxrwxr-x 2 nop nop 4096 Feb 20 09:01 new_folder
+drwxrwxr-x 2 nop nop 4096 Feb 26 06:20 copy_folder
+drwxrwxr-x 2 nop nop 4096 Feb 26 06:20 new_folder
 
 ./copy_folder:
-total 8
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file3.txt
+total 28
+-rw-rw-r-- 1 nop nop 18753 Feb 26 06:18 esp32.jpeg
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file2.txt
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file3.txt
 
 ./new_folder:
-total 4
--rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file2.txt
+total 24
+-rw-rw-r-- 1 nop nop 18753 Feb 26 06:18 esp32.jpeg
+-rw-rw-r-- 1 nop nop   286 Feb 26 06:18 file2.txt
 ```
 
 - Delete folder
@@ -218,9 +242,14 @@ curl -i -X PROPFIND '192.168.10.42:8080'
 curl -i -X MKCOL '192.168.10.42:8080/new_folder'
 ```
 
-- Upload File on Webdav Server:
+- Upload Text File on Webdav Server:
 ```
 curl -i -X PUT -T 'file.txt' '192.168.10.42:8080/new_folder/file.txt'
+```
+
+- Upload Binary File on Webdav Server:
+```
+curl -i -X PUT --data-binary @'esp32.jpeg' '192.168.10.42:8080/new_folder/esp32.jpeg'
 ```
 
 - Download file on Webdav Server:
