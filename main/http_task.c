@@ -163,7 +163,7 @@ int connect_server(struct addrinfo *res) {
 	return sock;
 }
 
-esp_err_t http_webdav_propfind(int sock, bool receive_print) {
+esp_err_t http_webdav_propfind(int sock, char *path, bool receive_print) {
 	// Allocate header
 	char *header_buffer = malloc(HEADER_SIZE);
 	if (header_buffer == NULL) {
@@ -174,7 +174,8 @@ esp_err_t http_webdav_propfind(int sock, bool receive_print) {
 
 	// Setup request header
 	char request[257];
-	http_request_set(request, 256, "PROPFIND", "/", 0, "");
+	//http_request_set(request, 256, "PROPFIND", "/", 0, "");
+	http_request_set(request, 256, "PROPFIND", path, 0, "");
 
 	// Send request
 	if (write(sock, request, strlen(request)) < 0) {
@@ -817,7 +818,7 @@ void http_task(void *pvParameters)
 	wait_enter("Creating new foder on Webdav Server. Press Enter when ready.");
 	sock = connect_server(res);
 	http_webdav_mkcol(sock, "/new_folder", true);
-	http_webdav_propfind(sock, false);
+	http_webdav_propfind(sock, "/", false);
 	close(sock);
 
 	// Perfome Text PUT
@@ -826,7 +827,7 @@ void http_task(void *pvParameters)
 	strcpy(local, "/spiffs/test.txt");
 	sock = connect_server(res);
 	http_webdav_text_put(sock, local, "/new_folder/file.txt", true);
-	http_webdav_propfind(sock, false);
+	http_webdav_propfind(sock, "/new_folder/file.txt", false);
 	close(sock);
 
 	// Perfome Binary PUT
@@ -834,7 +835,7 @@ void http_task(void *pvParameters)
 	strcpy(local, "/spiffs/esp32.jpeg");
 	sock = connect_server(res);
 	http_webdav_binary_put(sock, local, "/new_folder/esp32.jpeg", true);
-	http_webdav_propfind(sock, false);
+	http_webdav_propfind(sock, "/new_folder/esp32.jpeg", false);
 	close(sock);
 
 	// Perfome GET
@@ -849,28 +850,28 @@ void http_task(void *pvParameters)
 	bool overwrite = false;
 	sock = connect_server(res);
 	http_webdav_copy(sock, "/new_folder/file.txt", "/new_folder/file2.txt", overwrite, true);
-	http_webdav_propfind(sock, false);
+	http_webdav_propfind(sock, "/new_folder/", false);
 	close(sock);
 
 	// Perfome MOVE file
 	wait_enter("Moveing file on Webdav Server. Press Enter when ready.");
 	sock = connect_server(res);
 	http_webdav_move(sock, "/new_folder/file.txt", "/new_folder/file3.txt", overwrite, true);
-	http_webdav_propfind(sock, false);
+	http_webdav_propfind(sock, "/new_folder/", false);
 	close(sock);
 
 	// Perfome COPY folder
 	wait_enter("Copying folder on Webdav Server. Press Enter when ready.");
 	sock = connect_server(res);
 	http_webdav_copy(sock, "/new_folder", "/copy_folder", overwrite, true);
-	http_webdav_propfind(sock, false);
+	http_webdav_propfind(sock, "/copy_folder", false);
 	close(sock);
 
 	// Perfome DELETE file
 	wait_enter("Deleting file on Webdav Server. Press Enter when ready.");
 	sock = connect_server(res);
 	http_webdav_delete(sock, "/new_folder/file3.txt", true);
-	http_webdav_propfind(sock, false);
+	http_webdav_propfind(sock, "/new_folder/", false);
 	close(sock);
 
 	// Perfome DELETE folder
@@ -878,7 +879,7 @@ void http_task(void *pvParameters)
 	sock = connect_server(res);
 	http_webdav_delete(sock, "/new_folder", true);
 	http_webdav_delete(sock, "/copy_folder", true);
-	http_webdav_propfind(sock, false);
+	http_webdav_propfind(sock, "/", false);
 	close(sock);
 
 	freeaddrinfo(res);

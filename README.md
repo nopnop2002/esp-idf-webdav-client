@@ -230,11 +230,21 @@ total 0
 You can work with files using curl.   
 In addition to PUT/GET/DELETE, WebDav can use PROPFIND/MKCOL/COPY/MOVE.   
 
-- Read Files/Folders on Webdav Server:   
+- Read All Files/Folders on Webdav Server:   
  The body is XML and follows the following schema.   
  https://personium.io/docs/en/apiref/307_Get_Property   
 ```
 curl -i -X PROPFIND '192.168.10.42:8080'
+```
+
+- Read a Folder on Webdav Server:   
+```
+curl -i -X PROPFIND '192.168.10.42:8080/new_folder'
+```
+
+- Read a File on Webdav Server:   
+```
+curl -i -X PROPFIND '192.168.10.42:8080/new_folder/file.tx'
 ```
 
 - Creat new foder on Webdav Server:
