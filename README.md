@@ -70,7 +70,12 @@ $ LANG=C ls -lR
 total 0
 ```
 
-- Create new folder
+- Start the ESP32 project.   
+```
+idf.py flash monitor
+```
+
+- Create a new folder
 ```
 W (6604) HTTP: Creating new foder on Webdav Server. Press Enter when ready.   
 ```
@@ -85,7 +90,7 @@ drwxrwxr-x 2 nop nop 4096 Feb 19 23:26 new_folder
 total 0
 ```
 
-- Create new text file
+- Create a new text file
 ```
 W (28975) HTTP: Creating new text file on Webdav Server. Press Enter when ready.
 ```
@@ -101,7 +106,7 @@ total 4
 -rw-rw-r-- 1 nop nop 286 Feb 20 09:00 file.txt
 ```
 
-- Create new binary file
+- Create a new binary file
 ```
 W (47475) HTTP: Creating new binary file on Webdav Server. Press Enter when ready.
 ```
@@ -119,7 +124,7 @@ total 24
 ```
 
 
-- Get file from server
+- Retrieve the file from the server
 ```
 W (14114) HTTP: Geting file on Webdav Server. Press Enter when ready.
 ```
