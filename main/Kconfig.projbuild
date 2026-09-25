@@ -38,7 +38,7 @@ menu "Application Configuration"
 
 		config HTTP_AUTH_BASIC
 			bool "Enable BASIC authentication"
-			default false
+			default n
 			help
 				Enable BASIC authentication.
 
